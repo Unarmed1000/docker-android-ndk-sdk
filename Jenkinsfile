@@ -18,7 +18,7 @@ node
       DOCKERHUB_USERNAME = USERNAME
     }      
 
-    def IMAGE_NAME        = "$DOCKERHUB_USERNAME/docker-android-ndk-sdk"
+    def IMAGE_NAME        = "$DOCKERHUB_USERNAME/android-ndk-sdk"
 
     def app
     
