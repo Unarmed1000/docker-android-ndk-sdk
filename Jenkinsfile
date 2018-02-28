@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 node 
 {
     // some basic config
