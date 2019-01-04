@@ -61,12 +61,16 @@ RUN mkdir ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
  && echo "Install android-27" \
  && tools/bin/sdkmanager "platforms;android-27" \
+ && echo "Install android-28" \
+ && tools/bin/sdkmanager "platforms;android-28" \
  && echo "Install build-tools-25.0.3" \
  && tools/bin/sdkmanager "build-tools;25.0.3" \ 
  && echo "Install build-tools-26.0.2" \
  && tools/bin/sdkmanager "build-tools;26.0.2" \ 
  && echo "Install build-tools-27.0.3" \
  && tools/bin/sdkmanager "build-tools;27.0.3" \ 
+ && echo "Install build-tools-28.0.3" \
+ && tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Accepting licenses" \
  && (yes | tools/bin/sdkmanager --licenses) \
  && echo "Updating" \
