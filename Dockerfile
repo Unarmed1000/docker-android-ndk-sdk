@@ -73,6 +73,10 @@ RUN mkdir ${HOME}/.android \
  && tools/bin/sdkmanager "build-tools;27.0.3" \ 
  && echo "Install build-tools-28.0.3" \
  && tools/bin/sdkmanager "build-tools;28.0.3" \ 
+ && echo "Install build-tools-28.0.3" \
+ && tools/bin/sdkmanager "build-tools;28.0.3" \ 
+ && echo "Install platform-tools-28.0.1" \
+ && tools/bin/sdkmanager "platform-tools;28.0.1" \ 
  && echo "Accepting licenses" \
  && (yes | tools/bin/sdkmanager --licenses) \
  && echo "Updating" \
