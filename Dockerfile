@@ -59,6 +59,8 @@ RUN wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android
 WORKDIR ${ANDROID_HOME}
 RUN mkdir ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
+ && echo "Accepting licenses" \
+ && (yes | tools/bin/sdkmanager --licenses) \
  && echo "Install android-27" \
  && tools/bin/sdkmanager "platforms;android-27" \
  && echo "Install android-28" \
