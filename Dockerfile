@@ -1,5 +1,5 @@
 # inspired by https://github.com/brisma/docker-android-sdk/blob/master/Dockerfile
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
@@ -76,7 +76,7 @@ RUN mkdir ${HOME}/.android \
  && echo "Install build-tools-28.0.3" \
  && tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install platform-tools-28.0.1" \
- && tools/bin/sdkmanager "platform-tools;28.0.1" \ 
+ && tools/bin/sdkmanager "platform-tools" \
  && echo "Accepting licenses" \
  && (yes | tools/bin/sdkmanager --licenses) \
  && echo "Updating" \
