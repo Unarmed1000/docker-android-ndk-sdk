@@ -26,11 +26,11 @@ USER builder
 WORKDIR ${HOME}
 
 # Get the latest version from https://developer.android.com/studio/index.html
-ENV ANDROID_SDK_VERSION="3859397"
+ENV ANDROID_SDK_VERSION="4333796"
 ENV ANDROID_HOME ${HOME}/android-sdk
 
 # Android SDK tools ($HOME/android-sdk)
-#  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip \ 
+#  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
 RUN mkdir ${ANDROID_HOME} \
  && wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip \
  && unzip -q android-sdk.zip -d ${ANDROID_HOME} \
