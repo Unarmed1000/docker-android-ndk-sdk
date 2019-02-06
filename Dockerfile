@@ -75,6 +75,8 @@ RUN mkdir ${HOME}/.android \
  && (yes | tools/bin/sdkmanager --licenses) \
  && echo "Updating" \
  && tools/bin/sdkmanager --update \
+ && echo "Accepting licenses" \
+ && (yes | tools/bin/sdkmanager --licenses) \
  && echo Android sdk ready
 
 WORKDIR $HOME
