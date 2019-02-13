@@ -48,8 +48,8 @@ ENV ANDROID_NDK_VERSION="16b"
 ENV ANDROID_NDK ${HOME}/android-ndk-r${ANDROID_NDK_VERSION}
 ENV ANDROID_NDK_HOME ${ANDROID_NDK}
  
-# Android NDK ($HOME/android-ndk-r16b)
-# wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
+# Android NDK ($HOME/android-ndk-r19)
+# wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-linux-x86_64.zip
 RUN wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-linux-x86_64.zip \
  && unzip -q android-ndk.zip \
  && rm android-ndk.zip
