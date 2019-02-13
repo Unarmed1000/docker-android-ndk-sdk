@@ -6,7 +6,7 @@ node('ubuntu')
     // some basic config
     def DOCKERHUB_USERNAME = 'NotDefined'
 
-    def IMAGE_TAG         = (env.BRANCH_NAME == 'r16b'  ? 'r16b' : 'r16b-dev')
+    def IMAGE_TAG         = (env.BRANCH_NAME == 'r19'  ? 'r19' : 'r19-dev')
 
     def DOCKERAPITESTUBUNTU_PATH_READONLY_CACHE = env.DOCKERAPITESTUBUNTU_PATH_READONLY_CACHE    
 
