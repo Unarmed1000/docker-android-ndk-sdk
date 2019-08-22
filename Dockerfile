@@ -67,6 +67,8 @@ RUN mkdir ${HOME}/.android \
  && tools/bin/sdkmanager "platforms;android-27" \
  && echo "Install android-28" \
  && tools/bin/sdkmanager "platforms;android-28" \
+ && echo "Install android-29" \
+ && tools/bin/sdkmanager "platforms;android-29" \
  && echo "Install build-tools-25.0.3" \
  && tools/bin/sdkmanager "build-tools;25.0.3" \ 
  && echo "Install build-tools-26.0.2" \
