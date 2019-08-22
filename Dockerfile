@@ -41,7 +41,7 @@ RUN mkdir ${ANDROID_HOME} \
 ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/bin:$PATH
 
 # Get the latest version from https://developer.android.com/ndk/downloads/index.html
-ENV ANDROID_NDK_VERSION="r19c"
+ENV ANDROID_NDK_VERSION="19c"
  
 # Beware the script currently relies on the content of the downloaded NDK
 # to contain a directory named android-ndk-${ANDROID_NDK_VERSION}
@@ -50,6 +50,7 @@ ENV ANDROID_NDK ${HOME}/android-ndk-r${ANDROID_NDK_VERSION}
 ENV ANDROID_NDK_HOME ${ANDROID_NDK}
  
 # Android NDK ($HOME/android-ndk-r19)
+#                             https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
 # wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-linux-x86_64.zip
 RUN wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-linux-x86_64.zip \
  && unzip -q android-ndk.zip \
