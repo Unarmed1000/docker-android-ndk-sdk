@@ -7,6 +7,7 @@ RUN apt-get update \
         cmake \
         curl \
         git \
+        ninja-build \
         python3 \
         software-properties-common \
         unzip \
