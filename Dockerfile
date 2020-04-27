@@ -1,15 +1,21 @@
 # inspired by https://github.com/brisma/docker-android-sdk/blob/master/Dockerfile
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+
+# set noninteractive installation
+ENV DEBIAN_FRONTEND noninteractive
+ENV TZ=America/New_York
 
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
         build-essential \
+        clang \
         cmake \
         curl \
         git \
         ninja-build \
         python3 \
         software-properties-common \
+        tzdata \
         unzip \
         wget \
  && apt-add-repository -y ppa:openjdk-r/ppa \
@@ -28,11 +34,11 @@ USER builder
 WORKDIR ${HOME}
 
 # Get the latest version from https://developer.android.com/studio/index.html
-ENV ANDROID_SDK_VERSION="4333796"
+ENV ANDROID_SDK_VERSION="6200805"
 ENV ANDROID_HOME ${HOME}/android-sdk
 
 # Android SDK tools ($HOME/android-sdk)
-#  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
+#  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-6200805.zip \ 
 RUN mkdir ${ANDROID_HOME} \
  && wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip \
  && unzip -q android-sdk.zip -d ${ANDROID_HOME} \
@@ -42,7 +48,7 @@ RUN mkdir ${ANDROID_HOME} \
 ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/bin:$PATH
 
 # Get the latest version from https://developer.android.com/ndk/downloads/index.html
-ENV ANDROID_NDK_VERSION="20b"
+ENV ANDROID_NDK_VERSION="21b"
  
 # Beware the script currently relies on the content of the downloaded NDK
 # to contain a directory named android-ndk-${ANDROID_NDK_VERSION}
