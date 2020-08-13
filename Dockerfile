@@ -49,26 +49,13 @@ RUN mkdir ${ANDROID_HOME} \
  # Add path access to the android commands
 ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/bin:$PATH
 
-# Get the latest version from https://developer.android.com/ndk/downloads/index.html
-ENV ANDROID_NDK_VERSION="21d"
- 
-# Beware the script currently relies on the content of the downloaded NDK
-# to contain a directory named android-ndk-${ANDROID_NDK_VERSION}
-# so dont mess too much with the home location
-ENV ANDROID_NDK ${HOME}/android-ndk-r${ANDROID_NDK_VERSION}
-ENV ANDROID_NDK_HOME ${ANDROID_NDK}
- 
-# Android NDK ($HOME/android-ndk-r19)
-#                             https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
-# wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-linux-x86_64.zip
-RUN wget -nv -O android-ndk.zip https://dl.google.com/android/repository/android-ndk-r${ANDROID_NDK_VERSION}-linux-x86_64.zip \
- && unzip -q android-ndk.zip \
- && rm android-ndk.zip
 
 # Install the android sdk packages we need
 WORKDIR ${ANDROID_HOME}
 RUN mkdir -p ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
+ && mkdir -p ${HOME}/.gradle \
+ && echo systemProp.java.net.useSystemProxies=true >gradle.properties \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo "Install android-27" \
@@ -77,6 +64,8 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "platforms;android-28" \
  && echo "Install android-29" \
  && cmdline-tools/tools/bin/sdkmanager "platforms;android-29" \
+ && echo "Install android-30" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-30" \
  && echo "Install build-tools-25.0.3" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;25.0.3" \ 
  && echo "Install build-tools-26.0.2" \
@@ -89,6 +78,12 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install build-tools-29.0.2" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
+ && echo "Install build-tools-30.0.2" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
+ && echo "Install cmake 3.10.2" \
+ && cmdline-tools/tools/bin/sdkmanager "cmake;3.10.2.4988404" \
+ && echo "Install ndk 21.3.6528147" \
+ && cmdline-tools/tools/bin/sdkmanager "ndk;21.3.6528147" \
  && echo "Install platform-tools" \
  && cmdline-tools/tools/bin/sdkmanager "platform-tools" \
  && echo "Accepting licenses" \
