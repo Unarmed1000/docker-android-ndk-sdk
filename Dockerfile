@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # set noninteractive installation
 ENV DEBIAN_FRONTEND noninteractive
-ENV TZ=America/New_York
+ENV TZ=America/Phoenix
 
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
@@ -25,17 +25,15 @@ RUN apt-get update \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
  
 # Create the user that we will run this as
-ENV HOME /home/builder
-RUN useradd -c "builder" -d ${HOME} -m builder
-USER builder
-WORKDIR ${HOME}
+ENV LOCAL_SDK /sdks
+WORKDIR ${LOCAL_SDK}
 
 # Get the latest version from https://developer.android.com/studio/index.html
 #ENV ANDROID_SDK_VERSION="4333796"
 ENV ANDROID_SDK_VERSION="6609375"
-ENV ANDROID_HOME ${HOME}/android-sdk
+ENV ANDROID_HOME ${LOCAL_SDK}/android-sdk
 
-# Android SDK tools ($HOME/android-sdk)
+# Android SDK tools ($LOCAL_SDK/android-sdk)
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip \
 # https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
@@ -55,7 +53,7 @@ ENV ANDROID_NDK_VERSION="21d"
 # Beware the script currently relies on the content of the downloaded NDK
 # to contain a directory named android-ndk-${ANDROID_NDK_VERSION}
 # so dont mess too much with the home location
-ENV ANDROID_NDK ${HOME}/android-ndk-r${ANDROID_NDK_VERSION}
+ENV ANDROID_NDK ${LOCAL_SDK}/android-ndk-r${ANDROID_NDK_VERSION}
 ENV ANDROID_NDK_HOME ${ANDROID_NDK}
  
 # Android NDK ($HOME/android-ndk-r19)
@@ -99,10 +97,11 @@ RUN mkdir -p ${HOME}/.android \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo Android sdk ready
 
-WORKDIR $HOME
+WORKDIR $LOCAL_SDK
 
 # Support Gradle
 ENV TERM dumb
 ENV JAVA_OPTS "-Xms512m -Xmx1536m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
+
 
