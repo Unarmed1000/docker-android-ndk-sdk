@@ -50,7 +50,7 @@ RUN mkdir ${ANDROID_HOME} \
 ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/bin:$PATH
 
 # Get the latest version from https://developer.android.com/ndk/downloads/index.html
-ENV ANDROID_NDK_VERSION="21b"
+ENV ANDROID_NDK_VERSION="21d"
  
 # Beware the script currently relies on the content of the downloaded NDK
 # to contain a directory named android-ndk-${ANDROID_NDK_VERSION}
