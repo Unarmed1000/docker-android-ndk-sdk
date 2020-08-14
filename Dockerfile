@@ -102,11 +102,3 @@ ENV JAVA_OPTS "-Xms512m -Xmx1536m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
 ENV ANDROID_NDK ${ANDROID_HOME}/ndk/21.3.6528147
-
-# preinstall gradle
-
-RUN wget -nv -O ${HOME}/gradle.zip https://services.gradle.org/distributions/gradle-6.1.1-bin.zip \
- && unzip -d ${HOME} gradle.zip \
- && rm gradle.zip
-
-ENV GRADLE_HOME=${HOME}/gradle-6.1.1
