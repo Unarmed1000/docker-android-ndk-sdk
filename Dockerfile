@@ -82,8 +82,8 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
  && echo "Install cmake 3.10.2" \
  && cmdline-tools/tools/bin/sdkmanager "cmake;3.10.2.4988404" \
- && echo "Install ndk 21.0.6113669" \
- && cmdline-tools/tools/bin/sdkmanager "ndk;21.0.6113669" \
+ && echo "Install ndk 21.3.6528147" \
+ && cmdline-tools/tools/bin/sdkmanager "ndk;21.3.6528147" \
  && echo "Install platform-tools" \
  && cmdline-tools/tools/bin/sdkmanager "platform-tools" \
  && echo "Accepting licenses" \
