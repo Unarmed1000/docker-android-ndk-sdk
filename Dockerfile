@@ -18,7 +18,7 @@ RUN apt-get update \
         tzdata \
         unzip \
         wget \
-        openjdk-8-jdk \
+        openjdk-11-jre-headless \
  && rm -rf /var/lib/apt/lists/*
 
 # Export JAVA_HOME variable
