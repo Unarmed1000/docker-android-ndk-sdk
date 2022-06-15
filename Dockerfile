@@ -33,6 +33,7 @@ WORKDIR ${LOCAL_SDK}
 #ENV ANDROID_SDK_VERSION="6609375"
 ENV ANDROID_SDK_VERSION="8512546"
 ENV ANDROID_HOME ${LOCAL_SDK}/android-sdk
+ENV ANDROID_SDK_ROOT ${LOCAL_SDK}/android-sdk
 
 # Android SDK tools ($LOCAL_SDK/android-sdk)
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
