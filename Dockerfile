@@ -30,7 +30,8 @@ WORKDIR ${LOCAL_SDK}
 
 # Get the latest version from https://developer.android.com/studio/index.html
 #ENV ANDROID_SDK_VERSION="4333796"
-ENV ANDROID_SDK_VERSION="6609375"
+#ENV ANDROID_SDK_VERSION="6609375"
+ENV ANDROID_SDK_VERSION="8512546"
 ENV ANDROID_HOME ${LOCAL_SDK}/android-sdk
 
 # Android SDK tools ($LOCAL_SDK/android-sdk)
@@ -64,6 +65,10 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "platforms;android-29" \
  && echo "Install android-30" \
  && cmdline-tools/tools/bin/sdkmanager "platforms;android-30" \
+ && echo "Install android-31" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-31" \
+ && echo "Install android-32" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-32" \
  && echo "Install build-tools-25.0.3" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;25.0.3" \ 
  && echo "Install build-tools-26.0.2" \
@@ -78,10 +83,14 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
  && echo "Install build-tools-30.0.2" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
- && echo "Install cmake 3.10.2" \
- && cmdline-tools/tools/bin/sdkmanager "cmake;3.10.2.4988404" \
- && echo "Install ndk 21.3.6528147" \
- && cmdline-tools/tools/bin/sdkmanager "ndk;21.3.6528147" \
+ && echo "Install build-tools-32.0.0" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;32.0.0" \ 
+ && echo "Install build-tools-33.0.0" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.0" \ 
+ && echo "Install cmake 3.18.1" \
+ && cmdline-tools/tools/bin/sdkmanager "cmake;3.18.1" \
+ && echo "Install ndk 23.2.8568313" \
+ && cmdline-tools/tools/bin/sdkmanager "ndk;23.2.8568313" \
  && echo "Install platform-tools" \
  && cmdline-tools/tools/bin/sdkmanager "platform-tools" \
  && echo "Accepting licenses" \
@@ -99,4 +108,4 @@ ENV TERM dumb
 ENV JAVA_OPTS "-Xms512m -Xmx1536m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
-ENV ANDROID_NDK ${ANDROID_HOME}/ndk/21.3.6528147
+ENV ANDROID_NDK ${ANDROID_HOME}/ndk/23.2.8568313
