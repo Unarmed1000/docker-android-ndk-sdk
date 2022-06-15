@@ -24,7 +24,6 @@ RUN apt-get update \
 # Export JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
  
-# Create the user that we will run this as
 ENV LOCAL_SDK /sdks
 WORKDIR ${LOCAL_SDK}
 
@@ -57,6 +56,7 @@ RUN mkdir -p ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
  && mkdir -p ${HOME}/.gradle \
  && echo systemProp.java.net.useSystemProxies=true >gradle.properties \
+ && sudo chown $USER:$USER $(ANDROID_HOME) -R \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo "Install android-27" \
