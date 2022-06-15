@@ -101,7 +101,7 @@ RUN mkdir -p ${HOME}/.android \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo Fixing permissions \
- && chmod 755 -R ${ANDROID_HOME} \
+ && chmod 777 -R ${ANDROID_HOME} \
  && echo Android sdk ready
 
 WORKDIR $LOCAL_SDK
