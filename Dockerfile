@@ -56,7 +56,7 @@ RUN mkdir -p ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
  && mkdir -p ${HOME}/.gradle \
  && echo systemProp.java.net.useSystemProxies=true >gradle.properties \
- && sudo chown $USER:$USER $(ANDROID_HOME) -R \
+ && chown $USER:$USER ${ANDROID_HOME} -R \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo "Install android-27" \
