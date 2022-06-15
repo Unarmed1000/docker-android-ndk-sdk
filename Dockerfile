@@ -42,8 +42,8 @@ ENV ANDROID_HOME ${LOCAL_SDK}/android-sdk
 RUN mkdir ${ANDROID_HOME} \
  && wget -nv -O android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip \
  && mkdir ${ANDROID_HOME}/cmdline-tools \
- && unzip -q android-sdk.zip -d ${ANDROID_HOME}/dummy_dir \
- && mv ${ANDROID_HOME}/dummy_dir/cmdline-tools ${ANDROID_HOME}/tools \
+ && unzip -q android-sdk.zip -d ${ANDROID_HOME}/cmdline-tools \
+ && mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/tools \
  && rm android-sdk.zip
 
  # Add path access to the android commands
