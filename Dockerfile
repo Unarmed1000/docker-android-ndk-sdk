@@ -56,7 +56,6 @@ RUN mkdir -p ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
  && mkdir -p ${HOME}/.gradle \
  && echo systemProp.java.net.useSystemProxies=true >gradle.properties \
- && chown $USER:$USER ${ANDROID_HOME} -R \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo "Install android-27" \
@@ -101,6 +100,8 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager --update \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
+ && echo Fixing permissions \
+ && chown $USER:$USER ${ANDROID_HOME} -R \
  && echo Android sdk ready
 
 WORKDIR $LOCAL_SDK
