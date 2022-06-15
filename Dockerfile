@@ -57,49 +57,49 @@ RUN mkdir -p ${HOME}/.android \
  && mkdir -p ${HOME}/.gradle \
  && echo systemProp.java.net.useSystemProxies=true >gradle.properties \
  && echo "Accepting licenses" \
- && (yes | cmdline-tools/bin/sdkmanager --licenses) \
+ && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo "Install android-27" \
- && cmdline-tools/bin/sdkmanager "platforms;android-27" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-27" \
  && echo "Install android-28" \
- && cmdline-tools/bin/sdkmanager "platforms;android-28" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-28" \
  && echo "Install android-29" \
- && cmdline-tools/bin/sdkmanager "platforms;android-29" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-29" \
  && echo "Install android-30" \
- && cmdline-tools/bin/sdkmanager "platforms;android-30" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-30" \
  && echo "Install android-31" \
- && cmdline-tools/bin/sdkmanager "platforms;android-31" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-31" \
  && echo "Install android-32" \
- && cmdline-tools/bin/sdkmanager "platforms;android-32" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-32" \
  && echo "Install build-tools-25.0.3" \
- && cmdline-tools/bin/sdkmanager "build-tools;25.0.3" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;25.0.3" \ 
  && echo "Install build-tools-26.0.2" \
- && cmdline-tools/bin/sdkmanager "build-tools;26.0.2" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;26.0.2" \ 
  && echo "Install build-tools-27.0.3" \
- && cmdline-tools/bin/sdkmanager "build-tools;27.0.3" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;27.0.3" \ 
  && echo "Install build-tools-28.0.3" \
- && cmdline-tools/bin/sdkmanager "build-tools;28.0.3" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install build-tools-28.0.3" \
- && cmdline-tools/bin/sdkmanager "build-tools;28.0.3" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install build-tools-29.0.2" \
- && cmdline-tools/bin/sdkmanager "build-tools;29.0.2" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
  && echo "Install build-tools-30.0.2" \
- && cmdline-tools/bin/sdkmanager "build-tools;30.0.2" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
  && echo "Install build-tools-32.0.0" \
- && cmdline-tools/bin/sdkmanager "build-tools;32.0.0" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;32.0.0" \ 
  && echo "Install build-tools-33.0.0" \
- && cmdline-tools/bin/sdkmanager "build-tools;33.0.0" \ 
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.0" \ 
  && echo "Install cmake 3.18.1" \
- && cmdline-tools/bin/sdkmanager "cmake;3.18.1" \
+ && cmdline-tools/tools/bin/sdkmanager "cmake;3.18.1" \
  && echo "Install ndk 23.2.8568313" \
- && cmdline-tools/bin/sdkmanager "ndk;23.2.8568313" \
+ && cmdline-tools/tools/bin/sdkmanager "ndk;23.2.8568313" \
  && echo "Install platform-tools" \
- && cmdline-tools/bin/sdkmanager "platform-tools" \
+ && cmdline-tools/tools/bin/sdkmanager "platform-tools" \
  && echo "Accepting licenses" \
- && (yes | cmdline-tools/bin/sdkmanager --licenses) \
+ && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo "Updating" \
- && cmdline-tools/bin/sdkmanager --update \
+ && cmdline-tools/tools/bin/sdkmanager --update \
  && echo "Accepting licenses" \
- && (yes | cmdline-tools/bin/sdkmanager --licenses) \
+ && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo Android sdk ready
 
 WORKDIR $LOCAL_SDK
