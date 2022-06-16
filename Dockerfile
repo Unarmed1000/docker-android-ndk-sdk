@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # set noninteractive installation
 ENV DEBIAN_FRONTEND noninteractive
-ENV TZ=America/Phoenix
+ENV TZ=America/New_York
 
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
@@ -24,17 +24,19 @@ RUN apt-get update \
 # Export JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
  
-ENV LOCAL_SDK /sdks
-WORKDIR ${LOCAL_SDK}
+# Create the user that we will run this as
+ENV HOME /home/builder
+RUN useradd -c "builder" -d ${HOME} -m builder
+USER builder
+WORKDIR ${HOME}
 
 # Get the latest version from https://developer.android.com/studio/index.html
 #ENV ANDROID_SDK_VERSION="4333796"
 #ENV ANDROID_SDK_VERSION="6609375"
 ENV ANDROID_SDK_VERSION="8512546"
-ENV ANDROID_HOME ${LOCAL_SDK}/android-sdk
-ENV ANDROID_SDK_ROOT ${LOCAL_SDK}/android-sdk
+ENV ANDROID_HOME ${HOME}/android-sdk
 
-# Android SDK tools ($LOCAL_SDK/android-sdk)
+# Android SDK tools ($HOME/android-sdk)
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip \
 # https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
@@ -82,8 +84,8 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install build-tools-29.0.2" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
- && echo "Install build-tools-30.0.2" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
+ && echo "Install build-tools-30.0.3" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.3" \ 
  && echo "Install build-tools-32.0.0" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;32.0.0" \ 
  && echo "Install build-tools-33.0.0" \
@@ -100,11 +102,9 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager --update \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
- && echo Fixing permissions \
- && chmod -R 777 ${ANDROID_HOME} \
  && echo Android sdk ready
 
-WORKDIR $LOCAL_SDK
+WORKDIR $HOME
 
 # Support Gradle
 ENV TERM dumb
@@ -112,6 +112,3 @@ ENV JAVA_OPTS "-Xms512m -Xmx1536m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
 ENV ANDROID_NDK ${ANDROID_HOME}/ndk/23.2.8568313
-
-ENV HOME ${LOCAL_SDK}
-RUN chmod -R 777 ${LOCAL_SDK}
