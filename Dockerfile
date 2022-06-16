@@ -34,26 +34,27 @@ WORKDIR ${HOME}
 #ENV ANDROID_SDK_VERSION="4333796"
 #ENV ANDROID_SDK_VERSION="6609375"
 ENV ANDROID_SDK_VERSION="8512546"
-ENV ANDROID_HOME ${HOME}/android-sdk
+#ENV ANDROID_HOME ${HOME}/android-sdk
+ENV ANDROID_SDK_ROOT ${HOME}/android-sdk
 
 # Android SDK tools ($HOME/android-sdk)
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip \
 # https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
 # https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip
-RUN mkdir ${ANDROID_HOME} \
+RUN mkdir ${ANDROID_SDK_ROOT} \
  && wget -nv -O android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip \
- && mkdir ${ANDROID_HOME}/cmdline-tools \
- && unzip -q android-sdk.zip -d ${ANDROID_HOME}/cmdline-tools \
- && mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/tools \
+ && mkdir ${ANDROID_SDK_ROOT}/cmdline-tools \
+ && unzip -q android-sdk.zip -d ${ANDROID_SDK_ROOT}/cmdline-tools \
+ && mv ${ANDROID_SDK_ROOT}/cmdline-tools/cmdline-tools ${ANDROID_SDK_ROOT}/cmdline-tools/tools \
  && rm android-sdk.zip
 
  # Add path access to the android commands
-ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/bin:$PATH
+ENV PATH=${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/bin:$PATH
 
 
 # Install the android sdk packages we need
-WORKDIR ${ANDROID_HOME}
+WORKDIR ${ANDROID_SDK_ROOT}
 RUN mkdir -p ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
  && mkdir -p ${HOME}/.gradle \
@@ -111,4 +112,4 @@ ENV TERM dumb
 ENV JAVA_OPTS "-Xms512m -Xmx1536m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
-ENV ANDROID_NDK ${ANDROID_HOME}/ndk/23.2.8568313
+ENV ANDROID_NDK ${ANDROID_SDK_ROOT}/ndk/23.2.8568313
