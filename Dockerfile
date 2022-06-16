@@ -18,11 +18,11 @@ RUN apt-get update \
         tzdata \
         unzip \
         wget \
-        openjdk-8-jdk \
+        openjdk-11-jre-headless \
  && rm -rf /var/lib/apt/lists/*
 
 # Export JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
  
 # Create the user that we will run this as
 ENV HOME /home/builder
@@ -66,6 +66,10 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "platforms;android-29" \
  && echo "Install android-30" \
  && cmdline-tools/tools/bin/sdkmanager "platforms;android-30" \
+ && echo "Install android-31" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-31" \
+ && echo "Install android-32" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-32" \
  && echo "Install build-tools-25.0.3" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;25.0.3" \ 
  && echo "Install build-tools-26.0.2" \
@@ -78,10 +82,10 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install build-tools-29.0.2" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
- && echo "Install build-tools-30.0.2" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
- && echo "Install cmake 3.10.2" \
- && cmdline-tools/tools/bin/sdkmanager "cmake;3.10.2.4988404" \
+ && echo "Install build-tools-30.0.3" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.3" \ 
+ && echo "Install cmake 3.18.1" \
+ && cmdline-tools/tools/bin/sdkmanager "cmake;3.18.1" \
  && echo "Install ndk 21.3.6528147" \
  && cmdline-tools/tools/bin/sdkmanager "ndk;21.3.6528147" \
  && echo "Install platform-tools" \
