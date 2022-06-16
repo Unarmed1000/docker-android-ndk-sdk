@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # set noninteractive installation
 ENV DEBIAN_FRONTEND noninteractive
-ENV TZ=America/New_York
+ENV TZ=America/Phoenix
 
 RUN apt-get update \
  && apt-get -y install --no-install-recommends \
@@ -24,11 +24,8 @@ RUN apt-get update \
 # Export JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
  
-# Create the user that we will run this as
-ENV HOME /home/builder
-RUN useradd -c "builder" -d ${HOME} -m builder
-USER builder
-WORKDIR ${HOME}
+ENV LOCAL_SDK /sdks
+WORKDIR ${LOCAL_SDK}
 
 # Get the latest version from https://developer.android.com/studio/index.html
 #ENV ANDROID_SDK_VERSION="4333796"
@@ -105,7 +102,7 @@ RUN mkdir -p ${HOME}/.android \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo Android sdk ready
 
-WORKDIR $HOME
+WORKDIR $LOCAL_SDK
 
 # Support Gradle
 ENV TERM dumb
