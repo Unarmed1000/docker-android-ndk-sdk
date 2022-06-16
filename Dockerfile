@@ -79,8 +79,8 @@ RUN mkdir -p ${HOME}/.android \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
  && echo "Install build-tools-29.0.2" \
  && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
- && echo "Install build-tools-30.0.2" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.2" \ 
+ && echo "Install build-tools-30.0.3" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.3" \ 
  && echo "Install cmake 3.18.1" \
  && cmdline-tools/tools/bin/sdkmanager "cmake;3.18.1" \
  && echo "Install ndk 21.3.6528147" \
