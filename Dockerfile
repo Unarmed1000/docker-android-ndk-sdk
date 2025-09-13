@@ -29,6 +29,7 @@ RUN apt-get update \
 ENV JAVA_HOME /usr/lib/jvm/java-21-openjdk-amd64 PATH="${JAVA_HOME}/bin:${PATH}"
 
 USER ubuntu
+ENV HOME=/home/ubuntu
 WORKDIR ${HOME}
 
 ENV GRADLE_HOME=${HOME}/.gradle
