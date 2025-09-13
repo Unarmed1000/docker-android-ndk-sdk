@@ -17,12 +17,13 @@ RUN apt-get update \
         curl \
         git \
         ninja-build \
-        openjdk-21-jre-headless \
+        openjdk-21-jdk \
         python3 \
         software-properties-common \
         tzdata \
         unzip \
         wget \
+        which \
  && rm -rf /var/lib/apt/lists/*
 
 # Export JAVA_HOME variable
