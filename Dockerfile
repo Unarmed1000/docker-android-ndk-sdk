@@ -17,7 +17,7 @@ RUN apt-get update \
         curl \
         git \
         ninja-build \
-        openjdk-21-jre-headless \
+        openjdk-21-jdk \
         python3 \
         software-properties-common \
         tzdata \
