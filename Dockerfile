@@ -23,6 +23,7 @@ RUN apt-get update \
         tzdata \
         unzip \
         wget \
+        which \
  && rm -rf /var/lib/apt/lists/*
 
 # Export JAVA_HOME variable
