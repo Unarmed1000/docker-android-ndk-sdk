@@ -26,7 +26,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # Export JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-21-openjdk-amd64 PATH="${JAVA_HOME}/bin:${PATH}"
+ENV JAVA_HOME /usr/lib/jvm/java-21-openjdk-amd64
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 USER ubuntu
 ENV HOME=/home/ubuntu
