@@ -1,5 +1,9 @@
 # inspired by https://github.com/brisma/docker-android-sdk/blob/master/Dockerfile
-FROM ubuntu:20.04
+FROM ubuntu:24.04
+
+ARG ANDROID_CMAKE_VERSION=3.22.1
+ARG ANDROID_PLATFORM_VERSION=35
+ARG ANDROID_BUILD_TOOLS_VERSION=35.0.0
 
 # set noninteractive installation
 ENV DEBIAN_FRONTEND noninteractive
@@ -13,29 +17,32 @@ RUN apt-get update \
         curl \
         git \
         ninja-build \
+        openjdk-21-jre-headless \
         python3 \
         software-properties-common \
         tzdata \
         unzip \
         wget \
-        openjdk-11-jre-headless \
  && rm -rf /var/lib/apt/lists/*
 
 # Export JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
- 
-ENV LOCAL_SDK /sdks
-WORKDIR ${LOCAL_SDK}
+ENV JAVA_HOME /usr/lib/jvm/java-21-openjdk-amd64 PATH="${JAVA_HOME}/bin:${PATH}"
+
+USER ubuntu
+WORKDIR ${HOME}
+
+ENV GRADLE_HOME=${HOME}/.gradle
 
 # Get the latest version from https://developer.android.com/studio/index.html
 #ENV ANDROID_SDK_VERSION="4333796"
 #ENV ANDROID_SDK_VERSION="6609375"
-ENV ANDROID_SDK_VERSION="8512546"
+#ENV ANDROID_SDK_VERSION="8512546"
+ENV ANDROID_SDK_VERSION="11076708"
+ENV ANDROID_NDK_VERSION="27.2.12479018"
 ENV ANDROID_HOME ${HOME}/android-sdk
 ENV ANDROID_SDK_ROOT ${HOME}/android-sdk
 
 # Android SDK tools ($HOME/android-sdk)
-#  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \ 
 #  wget -nv -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_VERSION}.zip \
 # https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
 # https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_VERSION}_latest.zip
@@ -49,49 +56,22 @@ RUN mkdir ${ANDROID_SDK_ROOT} \
  # Add path access to the android commands
 ENV PATH=${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/bin:$PATH
 
-
 # Install the android sdk packages we need
 WORKDIR ${ANDROID_SDK_ROOT}
 RUN mkdir -p ${HOME}/.android \
  && touch ${HOME}/.android/repositories.cfg \
- && mkdir -p ${HOME}/.gradle \
+ && mkdir -p ${GRADLE_HOME} \
  && echo systemProp.java.net.useSystemProxies=true >gradle.properties \
  && echo "Accepting licenses" \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
- && echo "Install android-27" \
- && cmdline-tools/tools/bin/sdkmanager "platforms;android-27" \
- && echo "Install android-28" \
- && cmdline-tools/tools/bin/sdkmanager "platforms;android-28" \
- && echo "Install android-29" \
- && cmdline-tools/tools/bin/sdkmanager "platforms;android-29" \
- && echo "Install android-30" \
- && cmdline-tools/tools/bin/sdkmanager "platforms;android-30" \
- && echo "Install android-31" \
- && cmdline-tools/tools/bin/sdkmanager "platforms;android-31" \
- && echo "Install android-32" \
- && cmdline-tools/tools/bin/sdkmanager "platforms;android-32" \
- && echo "Install build-tools-25.0.3" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;25.0.3" \ 
- && echo "Install build-tools-26.0.2" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;26.0.2" \ 
- && echo "Install build-tools-27.0.3" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;27.0.3" \ 
- && echo "Install build-tools-28.0.3" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
- && echo "Install build-tools-28.0.3" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;28.0.3" \ 
- && echo "Install build-tools-29.0.2" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;29.0.2" \ 
- && echo "Install build-tools-30.0.3" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.3" \ 
- && echo "Install build-tools-32.0.0" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;32.0.0" \ 
- && echo "Install build-tools-33.0.0" \
- && cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.0" \ 
- && echo "Install cmake 3.18.1" \
- && cmdline-tools/tools/bin/sdkmanager "cmake;3.18.1" \
- && echo "Install ndk 23.2.8568313" \
- && cmdline-tools/tools/bin/sdkmanager "ndk;23.2.8568313" \
+ && echo "Install android-${ANDROID_PLATFORM_VERSION}" \
+ && cmdline-tools/tools/bin/sdkmanager "platforms;android-${ANDROID_PLATFORM_VERSION}" \
+ && echo "Install build-tools-${ANDROID_BUILD_TOOLS_VERSION}" \
+ && cmdline-tools/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
+ && echo "Install cmake ${ANDROID_CMAKE_VERSION}" \
+ && cmdline-tools/tools/bin/sdkmanager "cmake;${ANDROID_CMAKE_VERSION}" \
+ && echo "Install ndk ${ANDROID_NDK_VERSION}" \
+ && cmdline-tools/tools/bin/sdkmanager "ndk;${ANDROID_NDK_VERSION}" \
  && echo "Install platform-tools" \
  && cmdline-tools/tools/bin/sdkmanager "platform-tools" \
  && echo "Accepting licenses" \
@@ -102,11 +82,11 @@ RUN mkdir -p ${HOME}/.android \
  && (yes | cmdline-tools/tools/bin/sdkmanager --licenses) \
  && echo Android sdk ready
 
-WORKDIR $LOCAL_SDK
+WORKDIR ${HOME}
 
 # Support Gradle
 ENV TERM dumb
-ENV JAVA_OPTS "-Xms512m -Xmx1536m"
+ENV JAVA_OPTS "-Xms512m -Xmx2048m"
 ENV GRADLE_OPTS "-XX:+UseG1GC -XX:MaxGCPauseMillis=1000"
 
-ENV ANDROID_NDK ${ANDROID_SDK_ROOT}/ndk/23.2.8568313
+ENV ANDROID_NDK ${ANDROID_SDK_ROOT}/ndk/${ANDROID_NDK_VERSION}
