@@ -4,6 +4,7 @@ FROM ubuntu:24.04
 ARG ANDROID_CMAKE_VERSION=3.22.1
 ARG ANDROID_PLATFORM_VERSION=35
 ARG ANDROID_BUILD_TOOLS_VERSION=35.0.0
+ARG PYTHON_VERSION=3.14
 
 # set noninteractive installation
 ENV DEBIAN_FRONTEND noninteractive
@@ -26,6 +27,19 @@ RUN apt-get update \
         which \
  && rm -rf /var/lib/apt/lists/*
 
+# Install python from the deadsnakes PPA (ubuntu 24.04 only ships python 3.12).
+# python3/python in /usr/local/bin point to it, while /usr/bin/python3 stays on the system version for apt tooling.
+RUN add-apt-repository -y ppa:deadsnakes/ppa \
+ && apt-get update \
+ && apt-get -y install --no-install-recommends \
+        python${PYTHON_VERSION} \
+        python${PYTHON_VERSION}-dev \
+        python${PYTHON_VERSION}-venv \
+ && ln -sf /usr/bin/python${PYTHON_VERSION} /usr/local/bin/python3 \
+ && ln -sf /usr/bin/python${PYTHON_VERSION} /usr/local/bin/python \
+ && python3 --version | grep -q "Python ${PYTHON_VERSION}\." \
+ && rm -rf /var/lib/apt/lists/*
+
 # Export JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-21-openjdk-amd64
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
@@ -41,7 +55,7 @@ ENV GRADLE_HOME=${HOME}/.gradle
 #ENV ANDROID_SDK_VERSION="6609375"
 #ENV ANDROID_SDK_VERSION="8512546"
 ENV ANDROID_SDK_VERSION="11076708"
-ENV ANDROID_NDK_VERSION="27.2.12479018"
+ENV ANDROID_NDK_VERSION="30.0.16248370"
 ENV ANDROID_HOME ${HOME}/android-sdk
 ENV ANDROID_SDK_ROOT ${HOME}/android-sdk
 
